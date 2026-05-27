@@ -1,4 +1,5 @@
-﻿using System.Windows.Media.Animation;
+﻿using System.DirectoryServices.ActiveDirectory;
+using System.Windows.Media.Animation;
 
 namespace Snake_WPF
 {
@@ -11,6 +12,7 @@ namespace Snake_WPF
         public int Score { get; set; }
         public bool GameOver { get; set; }
 
+        private readonly LinkedList<Direction> dirChanges=new LinkedList<Direction>();//存储玩家输入的方向改变
         private readonly LinkedList<Position> snakePositions=new LinkedList<Position>();//蛇的位置
         private readonly Random random = new Random();//食物位置
 
@@ -90,11 +92,28 @@ namespace Snake_WPF
             Grid[tail.Row, tail.Col] = GridValue.Empty;
             snakePositions.RemoveLast();
         }
+        private Direction GetLastDirection()
+        {
+            if (dirChanges.Count == 0)
+                return Dir;
+            return dirChanges.Last.Value;
+        }
+        private bool CanChangeDirection(Direction newDir)
+        {
+            if (dirChanges.Count == 2)
+            {
+                return false;//已经有两次未处理的方向改变了
+            }
+            Direction lastDir = GetLastDirection();
+            return newDir != lastDir && newDir != lastDir.Opposite();//不能改变为当前方向或相反方向
+
+        }
         public void ChangeDirection(Direction Dir)
         {
-            if (Dir == Dir.Opposite()) return;//不能直接掉头
-            Dir = Dir;
+            if (CanChangeDirection(Dir))
+                dirChanges.AddLast(Dir);
         }
+        
         private bool OutsideGrid(Position pos)
         {
             return pos.Row < 0 || pos.Row >= Rows || pos.Col < 0 || pos.Col >= Cols;
@@ -113,7 +132,29 @@ namespace Snake_WPF
         }
         public void Move()
         {
+            if(dirChanges.Count > 0)
+            {
+                Dir = dirChanges.First.Value;
+                dirChanges.RemoveFirst();
+            }
 
+            Position newHeadPos = HeadPosition().Translate(Dir);
+            GridValue hit = WillHit(newHeadPos);
+            if (hit==GridValue.Outside||hit==GridValue.Snake)
+            {
+                GameOver = true;
+            }
+            else if (hit == GridValue.Empty)
+            {
+                RemoveTail();
+                AddHead(newHeadPos);
+            }
+            else if(hit == GridValue.Food)
+            {
+                AddHead(newHeadPos);
+                Score++;
+                AddFood();
+            }
         }
     }
 }

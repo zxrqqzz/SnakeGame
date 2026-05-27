@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:Snake_WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="BackgroundColor">#211E2B</SolidColorBrush><!--背景颜色-->
+        <SolidColorBrush x:Key="GridBackgroundColor">#312c40</SolidColorBrush><!--网格背景颜色-->
+        <SolidColorBrush x:Key="GridLineColor">#4f4867</SolidColorBrush>
+        <SolidColorBrush x:Key="TextColor">#ebebeb</SolidColorBrush>
+        <SolidColorBrush x:Key="OverlayColor">#7f000000</SolidColorBrush>
+        <FontFamily x:Key="MainFont">Assets/#Droid Sans Mono</FontFamily>
     </Application.Resources>
 </Application>
