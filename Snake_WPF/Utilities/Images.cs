@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Snake_WPF
+namespace Snake_WPF.Utilities
 {
     public static class Images
     {

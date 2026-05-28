@@ -1,4 +1,4 @@
-﻿namespace Snake_WPF
+﻿namespace Snake_WPF.Enums
 {
     public enum GridValue
     {

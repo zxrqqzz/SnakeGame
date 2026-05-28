@@ -1,4 +1,7 @@
-﻿using System.Runtime.InteropServices;
+﻿using Snake_WPF.Enums;
+using Snake_WPF.Models;
+using Snake_WPF.Utilities;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;

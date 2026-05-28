@@ -1,7 +1,8 @@
-﻿using System.DirectoryServices.ActiveDirectory;
+﻿using Snake_WPF.Enums;
+using System.DirectoryServices.ActiveDirectory;
 using System.Windows.Media.Animation;
 
-namespace Snake_WPF
+namespace Snake_WPF.Models
 {
     public class GameState
     {

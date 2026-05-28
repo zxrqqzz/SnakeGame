@@ -1,7 +1,7 @@
 ﻿using System.CodeDom.Compiler;
 using System.Windows.Media;
 
-namespace Snake_WPF
+namespace Snake_WPF.Models
 {
     public class Direction
     {
