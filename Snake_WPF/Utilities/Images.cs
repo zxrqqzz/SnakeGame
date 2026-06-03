@@ -13,6 +13,7 @@ namespace Snake_WPF.Utilities
         public readonly static ImageSource Tail = LoadImage("Tail.png");
         public readonly static ImageSource DeadHead = LoadImage("DeadHead.png");
         public readonly static ImageSource DeadBody = LoadImage("DeadBody.png");
+        public readonly static ImageSource Next = LoadImage("Next.png");
 
         private static ImageSource LoadImage(string filename)
         {

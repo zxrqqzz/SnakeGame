@@ -25,8 +25,8 @@ namespace Snake_WPF
         {
             {GridValue.Empty, Images.Empty },
             {GridValue.Snake, Images.Body },
-            {GridValue.Food, Images.Food }
-
+            {GridValue.Food, Images.Food },
+            {GridValue.Next, Images.Next }
         };
 
         private readonly Dictionary<Direction, int> diroRotation = new()
@@ -37,10 +37,11 @@ namespace Snake_WPF
             {Direction.Left,270 }
         };
 
-        private readonly int rows = 15, cols = 15;
-        private readonly Image[,] gridImages;
+        private int rows = 15, cols = 15;
+        private Image[,] gridImages;
         private GameState gameState;
         private bool gameRuning;
+        private bool levelUpInProgress;
 
         [DllImport("user32.dll")]
         static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
@@ -60,6 +61,7 @@ namespace Snake_WPF
 
             gridImages = SetupGrid();
             gameState = new GameState(rows, cols);
+            //gameState.OnNextLevelTriggered += GameState_OnNextLevelTriggered;
         }
 
         private async Task RunGame()
@@ -68,8 +70,13 @@ namespace Snake_WPF
             await ShowCountDown();
             Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
-            await ShowGameOver();
-            gameState = new GameState(rows, cols);
+
+            if (!levelUpInProgress)  // 如果不是升级导致的退出，才显示 GameOver
+            {
+                await ShowGameOver();
+                gameState = new GameState(rows, cols);
+            }
+            levelUpInProgress = false;
         }
         private async void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -111,7 +118,7 @@ namespace Snake_WPF
 
         private async Task GameLoop()
         {
-            while (!gameState.GameOver)
+            while (!gameState.GameOver && gameRuning)
             {
                 await Task.Delay(100);
                 gameState.Move();
@@ -138,7 +145,7 @@ namespace Snake_WPF
                         Source = Images.Empty,
                         RenderTransformOrigin = new Point(0.5, 0.5)
                     };
-
+                    
                     images[r, c] = image;
                     GameGrid.Children.Add(image);
                 }
@@ -205,7 +212,7 @@ namespace Snake_WPF
                 await Task.Delay(500);
             }
             OverLayText.Text = "Go!";
-            await Task.Delay(1000);
+            await Task.Delay(500);
         }
 
         private async Task ShowGameOver()
@@ -215,6 +222,11 @@ namespace Snake_WPF
 
             Overlay.Visibility = Visibility.Visible;
             OverLayText.Text = "按空格键重新开始";
+        }
+
+        private async void GameState_OnNextLevelTriggered()
+        {
+
         }
     }
 }

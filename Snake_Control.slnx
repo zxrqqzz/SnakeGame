@@ -1,4 +1,3 @@
 <Solution>
-  <Project Path="Snake_Control/Snake_Control.csproj" />
   <Project Path="Snake_WPF/Snake_WPF.csproj" Id="68ad8835-c433-4aba-b250-b5d35a36b123" />
 </Solution>

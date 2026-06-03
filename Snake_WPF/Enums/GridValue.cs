@@ -5,6 +5,7 @@
         Empty,
         Snake,
         Food,
-        Outside
+        Outside,
+        Next// 新增：过关道具
     }
 }
