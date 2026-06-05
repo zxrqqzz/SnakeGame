@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Snake_WPF/Snake_WPF.csproj" Id="68ad8835-c433-4aba-b250-b5d35a36b123" />
+  <Project Path="Tetris/Tetris.csproj" Id="47dadec3-6649-43db-9b8e-eaed360e2734" />
 </Solution>

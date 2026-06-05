@@ -11,7 +11,7 @@ namespace Snake_WPF.Models
         /// <summary>网格列数</summary>
         public int Cols { get; set; }
         /// <summary>网格二维数组，存储每个格子是 Empty/Snake/Food/Outside</summary>
-        public GridValue[,] Grid { get; set; }
+        public GridValue[,] Grid { get; set; } 
         /// <summary>当前蛇移动方向</summary>
         public Direction Dir { get; set; }
         /// <summary>当前得分</summary>
